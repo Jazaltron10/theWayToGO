@@ -28,16 +28,22 @@ func main() {
 }
 
 func basicTypes() {
+	// Grate that you are doing this, 
+	// `var` is commonly defined public, unless its for a specific reason otherwise
+	// like checking a nil type
 	var username string = "wagslane"
 	var password string = "20947382822"
 
 	// don't edit below this line
-	fmt.Println("Authorization: Basic", username+":"+password)
+	// why not use fmt.Printf(...), This would mean you can use /n (new line) or /t (tab)
+	fmt.Println("Authorization: Basic", username+":"+password) // should there be a space after `Basic`
 
 	congrats := "Happy birthday!"
 	fmt.Println(congrats)
 
 	// Working with constants
+	// pn - Nice this is also commonly used globally, but also can be used locally for a specific reason
+	// like a internal infinate loop that checks a const value
 	const premiumPlanName = "Premium Plan"
 	const basicPlanName = "Basic Plan"
 	fmt.Println("plan:", premiumPlanName)
@@ -45,6 +51,7 @@ func basicTypes() {
 
 	const firstName = "James"
 	const lastName = "Hunger"
+	// You can also use fmt.Sprintf("%s %s", firstName, lastName) this would be more ideal
 	const fullName = firstName + " " + lastName
 
 	fmt.Println("His name is", fullName)
@@ -62,6 +69,8 @@ func workingWithStrings() {
 		name,
 		openRate,
 	)
+
+	// pn - Nice when you have time look at the strings.Atio and others
 
 	fmt.Println("\n", msg)
 
@@ -89,6 +98,7 @@ func workingWithFunctions(x, y int) int {
 }
 
 func workingWithFuncStrings(s1 string, s2 string) string {
+	// You can also use fmt.Sprintf("%s %s", s1, s2) this would be more ideal
 	fullName := s1 + " " + s2
 	return fullName
 }
@@ -108,6 +118,9 @@ func workingWithMultipleReturnValues() (string, string) {
 
 // This function demonstrates implicit and explicit return
 func yearsUntilEvents(age int) (yearsUntilAdult int, yearsUntilDrinking int, yearsUntilCarRental int) {
+
+	// pn - do you think this could also be a switch case? 
+	
 	yearsUntilAdult = 18 - age
 	if yearsUntilAdult < 0 {
 		yearsUntilAdult = 0
