@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"unicode/utf8"
 )
 
 func basicTypes() {
@@ -33,7 +34,25 @@ func basicTypes() {
 	const fullName = firstName + " " + lastName
 
 	fmt.Println("His name is", fullName)
+	var floatNum float64 = 12345678.9
+	fmt.Println(floatNum)
 
+	var floatNum32 float32 = 12345678.9
+	var intNum32 int32 = 10
+	var result float32 = floatNum32 + float32(intNum32)
+	fmt.Println(result)
+
+	var uintNum1 uint = 3
+	var uintNum2 uint = 2
+	fmt.Println(uintNum1 / uintNum2)
+	fmt.Println(uintNum1 % uintNum2)
+
+	var myString string = `Hello Universe, i'm back \n`
+	fmt.Println(myString)
+
+	//Printing the length of a string
+	fmt.Println(len("Microscopic"))                                                                      //This prints the number of bytes in this string
+	fmt.Printf("\nThe number of characters in this string is %v", utf8.RuneCountInString("Microscopic")) //This prints the number of characters in this string
 }
 
 func workingWithStrings() {
@@ -131,7 +150,7 @@ func test(age int) {
 // It is also advisable to only use implicit returns for small functions
 func calculator(a, b int) (mul, div int, err error) {
 	if b == 0 {
-		return 0, 0, errors.New("Can't divide by zero")
+		return 0, 0, errors.New("can't divide by zero")
 	}
 	mul = a * b
 	div = a / b
@@ -142,9 +161,97 @@ func calculator(a, b int) (mul, div int, err error) {
 /*Guard Clauses Facilitate Multiple returns in a function at the different levels, helping to avoid nested conditional logic*/
 func divide(dividend, divisor int) (int, error) {
 	if divisor == 0 {
-		return 0, errors.New("Can't divide by zero")
+		return 0, errors.New("can't divide by zero")
 	}
 	return dividend / divisor, nil
+}
+
+// Errors
+func workingWithErrors(num, den int) (res, rem int, err error) {
+
+	if den == 0 {
+		err = errors.New("cannot Divide by Zero")
+		return 0, 0, err
+	}
+	res = num / den
+	rem = num % den
+	return res, rem, err
+}
+
+/*
+Arrays, Slices, Maps and Looping Control Structures
+.Fixed Length
+.Same Type
+.Indexable
+.Contiguous in Memory
+*/
+func workingWithSlices() {
+	var intArr [3]int32
+	intArr[1] = 123
+	fmt.Printf("->%d\n", intArr[0])
+	//indexing(Accessing) elements(@index) 1 and 2 in the array
+	fmt.Println(intArr[1:3])
+
+	//Printing the Memory address of the elements in the array
+	fmt.Println(&intArr[0])
+	fmt.Println(&intArr[1])
+	fmt.Println(&intArr[2])
+
+	//shortcut initialization
+	var onArr [5]int32 = [5]int32{3, 4, 5, 6, 7}
+	fmt.Printf("\n%v\n", onArr)
+	//OR
+	arr := [...]int32{13, 24, 35, 26, 17}
+	fmt.Printf("\nAn alternative method to declaring and initializing arrays in go -> %v\n", arr)
+
+	//SLICES
+	/*
+		Slices wrap arrays to give a more general,
+		powerful, and convenient interface to sequences of data.
+		They are simply arrays with added functionalities
+		I think this is golang's version of dynamic arrays
+	*/
+
+	var intSlice []int32 = []int32{4, 5, 6}
+	fmt.Printf("\nThe array %v has a length of %v with capacity %v\n", intSlice, len(intSlice), cap(intSlice))
+
+	intSlice = append(intSlice, 7, 3)
+	fmt.Printf("\n%v", intSlice)
+	fmt.Printf("\nThe array %v has a length of %v with capacity %v\n", intSlice, len(intSlice), cap(intSlice))
+
+	//The Spread Operator
+	// intSlice2 :=[...]int32{8,9}
+	var intSlice2 []int32 = []int32{8, 9}
+	intSlice = append(intSlice, intSlice2...)
+	fmt.Printf("\ngo -> %v\n", intSlice)
+	//OR use the make function, where you get to specify the length(3) and capacity(8) of the slice
+	var intSlice3 []int32 = make([]int32, 3, 8)
+	intSlice3 = append(intSlice3, intSlice...)
+	fmt.Printf("\ngo -> %v\n", intSlice3)
+
+}
+
+func workingWithMaps() {
+	/*
+		It works on the same concept as like other programming languages, i.e key, value pairs ]
+	*/
+	var myMap map[string]uint8 = make(map[string]uint8)
+	fmt.Println(myMap)
+
+	var myMap2 = map[string]uint8{"Adam": 23, "Sarah": 45}
+	fmt.Println(myMap2["Adam"])
+	fmt.Println(myMap2["Jason"])
+
+	/*
+		A map will always return something, even if the key doesn't exist
+		Maps in go, also return an optional second value, which is a boolean
+		e.g
+	*/
+	// var age, ok = myMap2["Jason"]
+	// if ok{
+	// 	fmt.Pein
+	// }
+
 }
 
 func main() {
@@ -180,4 +287,33 @@ func main() {
 	//Guard Clauses
 	res_c, err := divide(86, 3)
 	fmt.Printf("\nWhen Divided the result is %d and the error is %v", res_c, err)
+
+	//Errors
+	fmt.Printf("\n\nThe Original Error Codes")
+	var res_d, rem_d, erri = workingWithErrors(200, 25)
+	if erri != nil {
+		fmt.Printf("\n%v\n", erri.Error())
+	} else if rem_d == 0 {
+		fmt.Printf("\nThe result of the integer division is %v", res_d)
+	} else {
+		fmt.Printf("\nThe result of the integer division is %v with remainder %v", res_d, rem_d)
+	}
+
+	//Switch ALternative
+	fmt.Printf("\n\nThe Switch Alternative")
+	switch {
+	case erri != nil:
+		fmt.Println(erri.Error())
+	case rem_d == 0:
+		fmt.Printf("\nThe result of the integer division is %d\n", res_d)
+		// fmt.Printf("\n%v", res_d)
+	default:
+		fmt.Printf("\nThe result of the integer division is %v with remainder %v", res_d, rem_d)
+	}
+
+	//Arrays and Slices
+	workingWithSlices()
+
+	//Maps
+	workingWithMaps()
 }
