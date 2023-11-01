@@ -140,6 +140,7 @@ func main() {
 
 	fmt.Println(r.area())
 	// prints 50
+
 }
 
 func sugar() {
