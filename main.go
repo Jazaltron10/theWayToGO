@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -71,6 +72,62 @@ func workingWithStrings() {
 
 	fmt.Println("\n", msg)
 
+	//Strings, Runes, Bytes
+	fmt.Printf("\n--->>Go Fast\n")
+
+	var myString = "résumé"
+	// var indexed = myString[0]
+	var indexed = myString[1]
+	fmt.Printf("%v, %T\n", indexed, indexed)
+	for i, v := range myString {
+		fmt.Println(i, v)
+	}
+	/*
+		Understanding utf-8 encoding would help with getting a better grasp on how strings in golang work under the hood
+		When you are dealing with strings In golang your dealing with a value whose underlying representation is an array of bytes.
+	*/
+	// This is why taking the length of a string is it's length in the number of bytes and not the number of characters
+
+	fmt.Printf("\nThe length of 'myString' is %v", len(myString))
+
+	fmt.Printf("\n\n--->>- RUNES -<<---\n\n")
+	// The easier way to deal with index and iterating a string is to cast it into an array of runes
+	//They are just unicode point numbers which just represent the character.
+	//They are also just an alias for int32
+
+	var oString = []rune("résumé")
+	var idx = oString[1]
+	fmt.Printf("%v, %T\n", idx, idx)
+	for i, v := range oString {
+		fmt.Println(i, v)
+	}
+
+	fmt.Printf("\nThe length of 'myString' is %v", len(myString))
+
+	var myRune = 'a'
+	fmt.Printf("\nmyRune = %v", myRune)
+
+	var strSlice = []string{"s", "u", "b", "s", "c", "r", "i", "b", "e"}
+	var catStr = ""
+	for i := range strSlice {
+		catStr += strSlice[i]
+	}
+	fmt.Printf("\n%v", catStr)
+
+	//Using StringBuilder
+	fmt.Printf("\n\n--->>String Builder")
+	var strSlice2 = []string{"j", "a", "c", "o", "b"}
+	var strBuilder strings.Builder
+	// The range keyword allows you to iterate over a string and access the index and character value in the string.
+	for i := range strSlice2 {
+		strBuilder.WriteString(strSlice2[i])
+	}
+
+	var catStr2 = strBuilder.String()
+	fmt.Printf("\n%v", catStr2)
+
+	fmt.Printf("\n\n--->>Go Fast\n")
+
 }
 
 func workingWithConditionals() {
@@ -116,7 +173,7 @@ func workingWithMultipleReturnValues() (string, string) {
 }
 
 // This function demonstrates implicit and explicit return
-func yearsUntilEvents(age int) (yearsUntilAdult int, yearsUntilDrinking int, yearsUntilCarRental int) {
+func yearsUntilEvents(age int) (yearsUntilAdult, yearsUntilDrinking, yearsUntilCarRental int) {
 
 	// pn - do you think this could also be a switch case?
 
@@ -245,12 +302,47 @@ func workingWithMaps() {
 	/*
 		A map will always return something, even if the key doesn't exist
 		Maps in go, also return an optional second value, which is a boolean
-		e.g
+		e.g it returns true if the key(value) is in the map and false otherwise.
 	*/
-	// var age, ok = myMap2["Jason"]
-	// if ok{
-	// 	fmt.Pein
-	// }
+	var age, ok = myMap2["Jason"]
+	if ok {
+		fmt.Printf("The age is %v", age)
+	} else {
+		fmt.Println("Invalid Name")
+	}
+	//To delete a value you, you use the delete function -> delete(map,"key")
+	// delete(myMap2,"Adam")
+
+	// Iterating over a map
+	for name, age := range myMap2 {
+		fmt.Printf("Name: %v\n", name)
+		fmt.Printf("Name: %v, Age:%d \n", name, age)
+	}
+
+	//Iterating over Arrays and Slices
+	intArr := []int32{2, 3, 5, 4, 6, 5, 3, 2, 4, 6}
+	for i, v := range intArr {
+		fmt.Printf("Index: %v, Value:%d \n", i, v)
+	}
+
+	// While Loop variant
+	var i, j int = 0, 0
+	for i < 10 {
+		fmt.Println(i)
+		i = i + 1
+	}
+	for j < 10 {
+		if j >= 15 {
+			break
+		}
+		fmt.Println(j)
+		j = j + 1
+	}
+
+	// Traditional for loop
+	for i := 0; i < 100; i += 10 {
+		fmt.Printf("\n--->>> %d", i)
+	}
 
 }
 
@@ -267,7 +359,6 @@ func main() {
 	x = workingWithValues(x)
 	fmt.Println(x)
 	//prints 6 because the increment function received a copy of x, incremented it and then returned it.
-
 	//Multiple Returns (Implicit and Explicit)
 	firstName, _ := workingWithMultipleReturnValues()
 	fmt.Println("Welcome to the Family Mi amor,", firstName)
