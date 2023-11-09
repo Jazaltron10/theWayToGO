@@ -50,7 +50,65 @@ func workingWithPointers() {
 	}
 
 }
+
+func square(aray2 [5]float64) [5]float64 {
+	fmt.Printf("\nThe Memory location of aray2 in the normal function is: %p", &aray2)
+	for i := range aray2 {
+		aray2[i] = aray2[i] * aray2[i]
+	}
+	return aray2
+}
+func squarePointer(aray2 *[5]float64) [5]float64 {
+	fmt.Printf("\nThe Memory location of aray2 in the pointer function is: %p", aray2)
+	for i := range aray2 {
+		aray2[i] = aray2[i] * aray2[i]
+	}
+	return *aray2
+}
+
 func main() {
 	fmt.Println("Hello, Universe!")
 	workingWithPointers()
+	/*
+		The * symbol has two functions
+		The first is to initialize a new pointer and
+		The second is used to reference the value of a pointer
+	*/
+	//Asterisk
+	var p *int32 = new(int32)                          // Create a pointer p pointing to a new int32 with value 0
+	var i int32                                        // Declare an int32 variable i with value 0
+	fmt.Printf("\nThe value p points to is:-> %v", *p) // Prints 0 (value pointed to by p)
+	fmt.Printf("\nThe value of i is:-> %v", i)         // Prints 0 (value of i)
+
+	// Ampersand (&): Assign the address of i to p
+	p = &i                                               // Now p points to i
+	*p = 10                                              // Modify the value of i through p
+	fmt.Printf("\n\nThe value p points to is:-> %v", *p) // Prints 10 (value pointed to by p)
+	fmt.Printf("\nThe value of i is:-> %v", i)           // Prints 10 (value of i)
+
+	var k int32 = 2
+	i = k // Copy the value of k to i
+
+	// SLICES
+	var slice = []int32{1, 2, 3}
+	var sliceCopy = slice
+	sliceCopy[2] = 4
+	fmt.Printf("\n%v", slice)
+	fmt.Printf("\n%v", sliceCopy)
+
+	//Functions
+	var aray1 = [5]float64{1, 2, 3, 4, 5}
+	// This Method uses double the memory and is therefore inefficient because it passes a copy of the aray1 to the function
+	fmt.Printf("\n\nPass by value (Copying) in Functions")
+	fmt.Printf("\nThe Memory location of aray1 is: %p", &aray1)
+	var result1 [5]float64 = square(aray1)
+	fmt.Printf("\nThe result1 is: %v", result1)
+	fmt.Printf("\nThe value of aray1 is: %v", aray1)
+
+	// This Method uses a pointer, which is more efficient as aray1 can directly be modified or worked on
+	fmt.Printf("\n\nPass by reference (referencing with pointers) in Functions")
+	fmt.Printf("\nThe Memory location of aray1 is: %p", &aray1)
+	var result2 [5]float64 = squarePointer(&aray1)
+	fmt.Printf("\nThe result2 is: %v", result2)
+	fmt.Printf("\nThe value of aray1 is: %v", aray1)
 }
