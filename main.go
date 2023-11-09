@@ -86,14 +86,14 @@ func workingWithStrings() {
 		Understanding utf-8 encoding would help with getting a better grasp on how strings in golang work under the hood
 		When you are dealing with strings In golang your dealing with a value whose underlying representation is an array of bytes.
 	*/
-	// This is why taking the length of a string is it's length in the number of bytes and not the number of characters
+	// 	This is why taking the length of a string is it's length in the number of bytes and not the number of characters
 
 	fmt.Printf("\nThe length of 'myString' is %v", len(myString))
 
 	fmt.Printf("\n\n--->>- RUNES -<<---\n\n")
-	// The easier way to deal with index and iterating a string is to cast it into an array of runes
-	//They are just unicode point numbers which just represent the character.
-	//They are also just an alias for int32
+	// 	The easier way to deal with index and iterating a string is to cast it into an array of runes
+	//	They are just unicode point numbers which just represent the character.
+	//	They are also just an alias for int32
 
 	var oString = []rune("résumé")
 	var idx = oString[1]
@@ -118,7 +118,7 @@ func workingWithStrings() {
 	fmt.Printf("\n\n--->>String Builder")
 	var strSlice2 = []string{"j", "a", "c", "o", "b"}
 	var strBuilder strings.Builder
-	// The range keyword allows you to iterate over a string and access the index and character value in the string.
+	// 	The range keyword allows you to iterate over a string and access the index and character value in the string.
 	for i := range strSlice2 {
 		strBuilder.WriteString(strSlice2[i])
 	}

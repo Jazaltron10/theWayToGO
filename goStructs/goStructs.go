@@ -18,9 +18,9 @@ type Wheel struct {
 }
 
 type truck struct {
-	// "car" is embedded, so the definition of a
-	// "truck" now also additionally contains all
-	// of the fields of the car struct
+	// 	"car" is embedded, so the definition of a
+	// 	"truck" now also additionally contains all
+	// 	of the fields of the car struct
 	car
 	power string
 }
