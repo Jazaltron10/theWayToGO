@@ -59,7 +59,7 @@ type rect struct {
 }
 
 // Area has a receiver of (r rect)
-func (r rect) area() int {
+func (r rect) area() (int) {
 	fmt.Printf("\nThe area of this rectangle of width %d and height %d is -> ", r.width, r.height)
 	return r.width * r.height
 }

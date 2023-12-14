@@ -40,7 +40,6 @@ func checkChickenPrices(website string, chickenChannel chan string) {
 			break
 		}
 	}
-
 }
 
 func sendMessage(chickenChannel chan string, tofuChannel chan string) {
