@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	// "math/rand"
 	"sync"
 	"time"
 )
+
 // creating a Mutex(Mutual Exclusion)
 // var m = sync.Mutex{}
 
 var m = sync.RWMutex{}
+
 // These are simply counters for whenever you spawn a goroutine
 var wg = sync.WaitGroup{}
 var dbData = []string{"id1", "id2", "id3", "id4", "id5"}
@@ -43,18 +44,19 @@ func dbCall(i int) {
 
 /*
 NOTE
-Two processes writing to the same memory at the same time could lead to corrupt memory, this is why we use Mutexes 
+Two processes writing to the same memory at the same time could lead to corrupt memory, this is why we use Mutexes
 it matters where you put your mutexes
 We use the mutex to control writing to our slices to avoid corrupt memory.
- Drawback: the lock and unlock completely locks out other goroutines from accessing the results slice this is where the RWMutex comes in.
+
+	Drawback: the lock and unlock completely locks out other goroutines from accessing the results slice this is where the RWMutex comes in.
 */
-func save (result string){
+func save(result string) {
 	m.Lock()
 	results = append(results, result)
 	m.Unlock()
 }
 
-func log(){
+func log() {
 	m.RLock()
 	fmt.Printf("\nThe current results are: %v", results)
 	m.RUnlock()
