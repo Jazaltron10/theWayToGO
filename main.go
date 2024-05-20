@@ -3,7 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
+	"math/rand"
 	"strings"
+	"time"
 	"unicode/utf8"
 )
 
@@ -346,6 +348,52 @@ func workingWithMaps() {
 
 }
 
+func bannHeist() {
+	rand.Seed(time.Now().UnixNano())
+	isHeistOn := true
+
+	eludedGuards := rand.Intn(100)
+	if eludedGuards >= 50 {
+		fmt.Println("Looks like you've managed to make it past the guards. Good job, but remember, this is the first step.")
+	} else {
+		isHeistOn = false
+		fmt.Println("Plan a better disguise next time?")
+	}
+
+	openedVault := rand.Intn(100)
+	if isHeistOn && openedVault >= 70 {
+		fmt.Println("Grab and GO!")
+	} else if isHeistOn {
+		isHeistOn = false
+		fmt.Println("Vault can't be opened")
+	}
+
+	leftSafely := rand.Intn(5)
+	if isHeistOn {
+		switch leftSafely {
+		case 0:
+			isHeistOn = false
+			fmt.Println("Heist failed")
+		case 1:
+			isHeistOn = false
+			fmt.Println("Turns out vault doors don't open from the inside...")
+		case 2:
+			isHeistOn = false
+			fmt.Println("Turns out you tripped the alarm systems...")
+		case 3:
+			isHeistOn = false
+			fmt.Println("Turns out you got picked up by the security camera...")
+		default:
+			fmt.Println("Start the getaway car!")
+		}
+	}
+	if isHeistOn {
+		amtStolen := 10000 + rand.Intn(1000000)
+		fmt.Println("The total take was, %d", amtStolen)
+	}
+
+	fmt.Println(isHeistOn)
+}
 func main() {
 	basicTypes()
 	workingWithStrings()
@@ -407,4 +455,75 @@ func main() {
 
 	//Maps
 	workingWithMaps()
+
+	//The Ultimate Bank Heist
+	bannHeist()
+
+	// Planetina
+	// Test your functions!
+	fuelGauge(20)
+	// Create `planetChoice` and `fuel`
+	var fuel int
+	fuel = 1000000
+
+	var planetChoice string
+	planetChoice = "Venus"
+
+	// And then liftoff!
+	fuel = flyToPlanet(planetChoice, fuel)
+	fuelGauge(fuel)
+}
+
+// Planetina
+
+// Create the function fuelGauge() here
+func fuelGauge(fuel int) {
+	fmt.Println("You have", fuel, "gallons of fuel left")
+}
+
+// Create the function calculateFuel() here
+func calculateFuel(planet string) int {
+	var fuel int
+
+	switch planet {
+	case "Venus":
+		fuel = 300000
+	// fmt.Println("With", fuel, "litres of fuel, you can go to", planet)
+	case "Mercury":
+		fuel = 500000
+	// fmt.Println("With", fuel, "litres of fuel, you can go to", planet)
+	case "Mars":
+		fuel = 700000
+	// fmt.Println("With", fuel, "litres of fuel, you can go to", planet)
+	default:
+		fuel = 0
+	}
+
+	return fuel
+}
+
+// Create the function greetPlanet() here
+func greenPlanet(planet string) {
+	fmt.Println("Thanks for flying with ITA, we are currently in the orbit of", planet)
+
+}
+
+// Create the function cantFly() here
+func cantFly() {
+	fmt.Println("We do not have the available fuel to fly there.")
+}
+
+// Create the function flyToPlanet() here
+func flyToPlanet(planet string, fuel int) int {
+	var fuelRemaining, fuelCost int
+	fuelRemaining = fuel
+	fuelCost = calculateFuel(planet)
+
+	if fuelRemaining >= fuelCost {
+		greenPlanet(planet)
+		fuelRemaining -= fuelCost
+	} else {
+		cantFly()
+	}
+	return fuelRemaining
 }
