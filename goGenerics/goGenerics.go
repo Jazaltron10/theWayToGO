@@ -27,10 +27,10 @@ type car[T gasEngine | electricEngine] struct {
 	carModel string
 	engine   T
 }
+
 // func (c car[T]) carSpecifications() string{
-	
-// 	return fmt.Sprintf("Hello: %v", c.carMake)
-// }
+//		return fmt.Sprintf("Hello: %v", c.carMake)
+//	}
 func main() {
 	intSlice := []int{1, 2, 3, 4, 5}
 	floatSlice := []float64{1.1, 2.2, 3.3, 4.4, 5.5}
@@ -59,7 +59,7 @@ func main() {
 			mpkwh: 4.17,
 		},
 	}
-	fmt.Printf("\n->:%v",gasCar.carMake)
-	fmt.Printf("\n->:%v",electricCar.carMake)
-	
+	fmt.Printf("\n->:%v", gasCar.carMake)
+	fmt.Printf("\n->:%v", electricCar.carMake)
+
 }

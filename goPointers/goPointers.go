@@ -111,4 +111,28 @@ func main() {
 	var result2 [5]float64 = squarePointer(&aray1)
 	fmt.Printf("\nThe result2 is: %v", result2)
 	fmt.Printf("\nThe value of aray1 is: %v", aray1)
+
+	// codecademy
+	star := "Polaris"
+
+	starAddress := &star
+
+	// Add your code below:
+	*starAddress = "Sirius"
+
+	fmt.Println("The actual value of star is", star)
+
+	// brainwash
+	greeting := "Hello there!"
+
+	// Call your brainwash() below:
+	brainwash(&greeting)
+
+	fmt.Println("greeting is now:", greeting)
+}
+
+// Change brainwash to have a pointer parameter
+func brainwash(saying *string) {
+	// Dereference saying below:
+	*saying = "Beep Boop."
 }
