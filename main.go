@@ -389,7 +389,7 @@ func bannHeist() {
 	}
 	if isHeistOn {
 		amtStolen := 10000 + rand.Intn(1000000)
-		fmt.Println("The total take was, %d", amtStolen)
+		fmt.Printf("The total take was, %d", amtStolen)
 	}
 
 	fmt.Println(isHeistOn)
@@ -466,8 +466,8 @@ func main() {
 	var fuel int
 	fuel = 1000000
 
-	var planetChoice string
-	planetChoice = "Venus"
+	// var planetChoice string
+	planetChoice := "Venus"
 
 	// And then liftoff!
 	fuel = flyToPlanet(planetChoice, fuel)

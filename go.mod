@@ -1,3 +1,3 @@
-module projectOne/main.go
+module github.com/jazaltron/projectOne
 
-go 1.21.3
+go 1.22.4

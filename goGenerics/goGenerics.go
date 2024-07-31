@@ -29,7 +29,6 @@ type car[T gasEngine | electricEngine] struct {
 }
 
 // func (c car[T]) carSpecifications() string{
-
 //		return fmt.Sprintf("Hello: %v", c.carMake)
 //	}
 func main() {
